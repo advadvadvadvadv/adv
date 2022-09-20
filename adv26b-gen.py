@@ -1,5 +1,5 @@
 import torch, torch.nn as nn, torch.optim as optim, torch.nn.functional as functional, torch.utils.data as torchdata
-from dataloaders8 import dataloaders
+from dataloaders import dataloaders
 from utils6 import *
 from mahalanobis_b import *
 from detector_class_b import *
