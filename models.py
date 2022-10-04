@@ -1,4 +1,6 @@
 import torch, torch.nn as nn, torch.optim as optim, torch.nn.functional as functional, torch.utils.data as torchdata, math
+import numpy as np
+from torch.autograd import Variable
 
 class FirstResBlock(nn.Module):
 	def __init__(self, n_filters, batchnorm = True, bias = False, timestep = 1):
