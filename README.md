@@ -4,10 +4,15 @@ Adversarial detection using Transport and Mahalanobis detectors
 python3 adv28.py -dat [DATASET] -mod [MODEL] -trt [TRAINTYPE] -set [SETTING] -att [ATTACKNAMES] 
 ```
 DATASET from 'cifar10', 'cifar100', 'tinyimagenet'
+
 MODEL from 'resnext50', 'resnet110', 'wide'
+
 TRAINTYPE from 'van', 'rce', 'lap'
+
 SETTING from 'seen', 'unseen'
+
 ATTACKNAMES from 'fgm', 'pgd', 'bim', 'df', 'cw', 'hsj', 'ba', 'wb', 'bb', 'wbf', 'wbs', 'all'
+
 
 So to detect seen white-box attacks on a LAP-ResNet110 on CIFAR10
 
