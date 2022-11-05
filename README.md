@@ -1,38 +1,33 @@
-Seen attacks
-
-without regularization
+Adversarial detection using Transport and Mahalanobis detectors
 
 ```
-python3 adv26b.py -dat cifar10 -mod resnet110 -att wbf -lmt 0.0 -tau 0.0 -bas 100 -vls 0.9 -tss 0.1 -see 0
+python3 adv28.py -dat [DATASET] -mod [MODEL] -trt [TRAINTYPE] -set [SETTING] -att [ATTACKNAMES] 
 ```
+DATASET from 'cifar10', 'cifar100', 'tinyimagenet'
+MODEL from 'resnext50', 'resnet110', 'wide'
+TRAINTYPE from 'van', 'rce', 'lap'
+SETTING from 'seen', 'unseen'
+ATTACKNAMES from 'fgm', 'pgd', 'bim', 'df', 'cw', 'hsj', 'ba', 'wb', 'bb', 'wbf', 'wbs', 'all'
 
-with regularization
-```
-python3 adv26b.py -dat cifar10 -mod resnet110 -att wbf -lmt 1.0 -tau 1.0 -bas 100 -vls 0.9 -tss 0.1 -see 0
-```
-
-
-Unseen attacks
-
-without regularization
+So to detect seen white-box attacks on a LAP-ResNet110 on CIFAR10
 
 ```
-python3 adv26b-gen.py -dat cifar10 -mod resnet110 -att wb -lmt 0.0 -tau 0.0 -bas 100 -vls 0.9 -tss 0.1 -see 0
+python3 adv28.py -dat cifar10 -mod resnet110 -trt lap -set seen -att wb
 ```
 
-with regularization
-```
-python3 adv26b-gen.py -dat cifar10 -mod resnet110 -att wb -lmt 1.0 -tau 1.0 -bas 100 -vls 0.9 -tss 0.1 -see 0
-```
-
-Training
+Network training
 
 To train a vanilla network
 ```
-python3 adv_train_network_b.py -dat cifar100 -mod resnext50
+python3 adv_train_network_c.py -dat cifar100 -mod resnext50
 ```
 
 To train a LAP network
 ```
-python3 adv_train_network_b.py -dat cifar100 -mod resnext50 -lmt 1 -tau 1 -uzs 1 
+python3 adv_train_network_c.py -dat cifar100 -mod resnext50 -lmt 1 -tau 1 -uzs 1 
+```
+
+To train an RCE network
+```
+python3 adv_train_network_c.py -dat cifar100 -mod resnext50 -rce 1 -lrr 0.05 -inn orthogonal -ing 0.05
 ```
