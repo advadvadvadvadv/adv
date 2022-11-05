@@ -37,7 +37,7 @@ To train an RCE network
 python3 adv_train_network_c.py -dat cifar100 -mod resnext50 -rce 1 -lrr 0.05 -inn orthogonal -ing 0.05
 ```
 
-OOD detection
+OOD detection using Transport and Mahalanobis detectors
 ```
 python3 ood2.py -ind cifar10 -ood1 cifar100 -ood2 svhn -mod resnet110 -trt van -bas 100 -ivs 0.9 -its 0.1 -o1vs 0.9 -o1ts 0.1 -o2ts 0.03845 -see 0
 ```
