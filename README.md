@@ -39,7 +39,7 @@ python3 adv_train_network_c.py -dat cifar100 -mod resnext50 -rce 1 -lrr 0.05 -in
 
 OOD detection using Transport and Mahalanobis detectors
 ```
-python3 ood3.py -ind cifar10 -ood1 [OOD1] -ood2 svhn -mod resnet110 -trt van -bas 100 -ivs 0.9 -its 0.1 -o1vs 0.9 -o1ts 0.1 -o2ts 0.03845 -see 0
+python3 ood3.py -ind cifar10 -ood1 [OOD1] -ood2 svhn -mod resnet110 -trt van -bas 100 -ivs 0.9 -its 0.1 -o1vs 0.9 -o1ts 0.1 -o2ts 0.03845
 ```
 
 OOD1 can be cifar100 or an attack from fgm, pgd, bim, df, cw, hsj, ba
