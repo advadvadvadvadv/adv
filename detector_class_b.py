@@ -73,7 +73,7 @@ class TrainedDetector(Detector):
 	def detect(self, transport = None, norms = None, cosines = None, pred = None, M = None, lid = None):
 		x = M if self.type == 'Maha' else (lid if self.type == 'LID' else (norms if self.type == 'norms' else (cosines if self.type == 'cosines' else norms + cosines)))
 		if len(x) != self.input_size:
-			raise ValueError('Vector of input to detector has wrong dimension, input was', x, 'expected input size')
+			raise ValueError('Vector of input to detector has wrong dimension')
 		return self.trained_detector.predict(np.array([x]))[0]
 
 class ClassConditionalDetector(Detector):
