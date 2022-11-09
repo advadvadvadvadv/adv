@@ -89,7 +89,7 @@ def tinyimagenet_dataloaders(batchsize, trainsize = 1, valsize = 1, testsize = 1
 	trainloader = get_subset_loader(trainset, batchsize, trainsize)
 	valloader = get_subset_loader(valset, batchsize, valsize)
 	testloader = get_subset_loader(testset, batchsize, testsize)
-	valloader, testloader = get_subset_loaders(testset, batchsize, [valsize, testsize])
+	valloader, testloader = get_subset_loaders(valset, batchsize, [valsize, testsize])
 	return trainloader, valloader, testloader, datashape, nclasses, np.array(mean), np.array(std)
 
 def get_subset_loader(dataset, batchsize, size):
