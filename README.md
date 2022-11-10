@@ -24,17 +24,17 @@ Network training
 
 To train a vanilla network
 ```
-python3 adv_train_network_c.py -dat cifar100 -mod resnext50
+python3 adv_train_network_c.py -dat cifar100 -mod resnext50 -see 0
 ```
 
 To train a LAP network
 ```
-python3 adv_train_network_c.py -dat cifar100 -mod resnext50 -lmt 1 -tau 1 -uzs 1 
+python3 adv_train_network_c.py -dat cifar100 -mod resnext50 -lmt 1 -tau 1 -uzs 1 -see 0
 ```
 
 To train an RCE network
 ```
-python3 adv_train_network_c.py -dat cifar100 -mod resnext50 -rce 1 -lrr 0.05 -inn orthogonal -ing 0.05
+python3 adv_train_network_c.py -dat cifar100 -mod resnext50 -rce 1 -lrr 0.05 -inn orthogonal -ing 0.05 -see 0
 ```
 
 OOD detection using Transport and Mahalanobis detectors
