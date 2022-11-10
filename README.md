@@ -3,7 +3,7 @@ Adversarial detection using Transport and Mahalanobis detectors
 ```
 python3 adv29.py -dat [DATASET] -mod [MODEL] -trt [TRAINTYPE] -set [SETTING] -att [ATTACKS] 
 ```
-DATASET from cifar10, cifar100, tinyimagenet
+DATASET from cifar100, cifar10, tinyimagenet
 
 MODEL from resnext50, resnet110, wide
 
