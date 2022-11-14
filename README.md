@@ -43,3 +43,6 @@ python3 ood3.py -ind cifar10 -ood1 [OOD1] -ood2 svhn -mod resnet110 -trt van -ba
 ```
 
 OOD1 can be cifar100 or an attack from fgm, pgd, bim, df, cw, hsj, ba
+
+
+adv29 uses ART for AutoAttack while adv31 uses the author's original code. In adv29 the attacker does not know about RCE training and so misinterprets the. output of the network which leads to better adversarial detection, while in adv31 the attackers knows to flip the logits.
