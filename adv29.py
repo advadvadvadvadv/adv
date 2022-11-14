@@ -424,6 +424,6 @@ if __name__ == '__main__':
 
 	device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 	magnitudes = ['0', '0.01', '0.001', '0.0014', '0.002', '0.005', '0.0005']
-	rce = args.traintype[0] == 'rce'
+	rce = False
 	parameters = [values[0] for name, values in vars(args).items()]
 	experiment(*parameters)
