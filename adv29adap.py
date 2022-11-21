@@ -446,7 +446,7 @@ def adaptive1(classifier_detector, classifier_detector_attack, model, classifier
 				if not adver2_correct and not adver2_detected:
 					print('successeful undetected classifier detector attack')
 					n_successfull_undetected_adaptive_attacks += 1
-					if torch.linalg.vector_norm(adver2_x - x) < 0.03:
+					if torch.linalg.vector_norm(adver2_x - clean_x) < 0.1:
 						print('successeful small enough adaptive attack')
 						n_successfull_small_undetected_adaptive_attacks += 1
 				else:
