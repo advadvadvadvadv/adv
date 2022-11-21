@@ -360,55 +360,6 @@ def test_detectors(detectors, attack_name, eps, dataset, classifier, model, test
 		print('\n------', detector.name.ljust(70) , ' '.join(stat_name + ' ' + str(round(stat, 3)) for stat_name, stat in detector.stats().items() if stat != -1))
 	return best_maha_detector, best_tra_detector
 
-def adaptive2(detector, testloader, model, classifier, criterion, lamda1 = 10, lamda2 = 0.1):
-	detector.reset()
-	n_images = 0
-	n_successfull_simple_attacks = 0
-	n_successfull_undetected_simple_attacks = 0
-	n_successfull_detected_simple_attacks = 0
-	n_successfull_undetected_adaptive_attacks = 0
-	attack = get_attack('cw2', classifier, 1)
-	detector_ = SklearnClassifier(model = detector.trained_detector)
-	detector_attack = HopSkipJump(detector_, verbose = False) # white box attack for random forest
-	for j, (x, y) in enumerate(testloader):
-		x, y = x.to(device).float(), y.to(device)
-		adver_x = get_adver_sample(x, attack)
-		clean_pred, clean_correct, clean_rs, clean_transport, clean_norms, clean_cosines, clean_m = get_model_pred_and_stats(model, x, y, n_classes, maha_params)
-		adver_pred, adver_correct, adver_rs, adver_transport, adver_norms, adver_cosines, adver_m = get_model_pred_and_stats(model, adver_x, y, n_classes, maha_params)
-		if clean_correct and not adver_correct:
-			n_successfull_simple_attacks += 1
-			adver_detected = detector.detect(adver_transport, adver_norms, adver_cosines, adver_pred, adver_m[detector.maha_mag])
-			if not adver_detected:
-				print('sucesseful undetected classifier attack')
-				n_successfull_undetected_simple_attacks += 1
-			else:
-				print('sucesseful detected classifier attack, trying classifier detector attack')
-				n_successfull_detected_simple_attacks += 1
-				adver_feature = detector_attack.generate(x = adver_norms + adver_cosines) 
-				l = int(len(adver_feature) / 2)
-				adver_feature_detected = detector.detect(adver_transport, adver_feature[:l].tolist(), adver_feature[l:].tolist(), adver_pred, adver_m[detector.maha_mag])
-				if not adver_feature_detected :
-					fun = lambda x0 : - criterion(model(x_0)[0], y) + lamda1 * mse(model.norms_cosines(x0), torch.from_numpy(adver_feature).to(device, dtype = torch.float)) + lamda2 * torch.sum(model.norms_cosines(x0)[:l])
-					con = lambda x0 : torch.linalg.vector_norm(x0 - x)
-					adver2_x = torchmin.minimize_constr(fun, adver_x, constr = {'fun': con, 'ub': 0.03}, bounds = {'lb': torch.zeros_like(adver_x), 'ub': torch.ones_like(adver_x)}, disp = 3)
-					adver2_pred, adver2_correct, adver2_rs, adver2_transport, adver2_norms, adver2_cosines, adver2_m = get_model_pred_and_stats(model, adver2_x, y, n_classes, maha_params)
-					adver2_detected = detector.detect(adver2_transport, adver2_norms, adver2_cosines, adver2_pred, adver2_m[detector.maha_mag])
-					if not adver2_correct and not adver2_detected:
-						print('sucesseful adaptive attack')
-						n_successfull_undetected_adaptive_attacks = 0
-					else:
-						print('failed adaptive attack')
-				else:
-					print('failed adaptive attack')
-		if (j + 1) % 10 == 0:
-			print('--- im', n_images, 'suc und sim', n_successfull_undetected_simple_attacks, 'suc det sim', n_successfull_detected_simple_attacks, 'suc und ada', n_successfull_undetected_adaptive_attacks, flush = True)
-		
-
-					 
-			
-fun2 = lambda x0 : - criterion(model(x_0)[0], y) - lamda * criterion(detector.trained_detector.predict_proba(x_0), detected) # x_0 to norms and cosines
-
-
 
 def adaptive1(classifier_detector, classifier_detector_attack, model, classifier, detector, testloader, n_classes, maha_params, batchsize):
 	detector.reset()
@@ -447,7 +398,7 @@ def adaptive1(classifier_detector, classifier_detector_attack, model, classifier
 					print('successeful undetected classifier detector attack')
 					n_successfull_undetected_adaptive_attacks += 1
 					if torch.linalg.vector_norm(adver2_x - clean_x) < 0.1:
-						print('successeful small enough adaptive attack')
+						print('successeful small enough undetected classifier detector attack')
 						n_successfull_small_undetected_adaptive_attacks += 1
 				else:
 					print('failed classifier detector attack')
