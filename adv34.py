@@ -372,7 +372,6 @@ def test_detectors(model, attack, loader, n_classes, detectors, maha_params, cor
 
 	for detector in detectors:
 		print('\n------', detector.name.ljust(70) , ' '.join(stat_name + ' ' + str(round(stat, 3)) for stat_name, stat in detector.stats().items() if stat != -1))
-	return best_detectors
 	
 def experiment(dataset, modelname, traintype, setting, attack_names, epsilon, train_attack_name, train_attack_epsilon, cutoff, correct_on_noisy_only, batchsize, trainsize, valsize, testsize, seed):
 	
@@ -403,11 +402,11 @@ def experiment(dataset, modelname, traintype, setting, attack_names, epsilon, tr
 	if setting == 'seen':
 		for attack in attacks:
 			detectors = train_detectors(model, attack, valloader, n_classes, n_res, maha_params, correct_on_noisy_only, cutoff)
-			best_detectors = test_detectors(model, attack, testloader, n_classes, detectors, maha_params, correct_on_noisy_only)
+			test_detectors(model, attack, testloader, n_classes, detectors, maha_params, correct_on_noisy_only)
 	elif setting == 'unseen':
 		detectors = train_detectors(model, train_attack, valloader, n_classes, n_res, maha_params, correct_on_noisy_only, cutoff)
 		for attack in attacks:
-			best_detectors = test_detectors(model, attack, testloader, n_classes, detectors, maha_params, correct_on_noisy_only)
+			test_detectors(model, attack, testloader, n_classes, detectors, maha_params, correct_on_noisy_only)
 	else:
 		raise NotImplementedError('Setting unknown')
 
