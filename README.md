@@ -46,4 +46,4 @@ OOD1 can be cifar100 or an attack from fgm, pgd, bim, df, cw, hsj, ba
 
 
 
-adv29 uses ART for AutoAttack while adv31 uses the author's original code. In adv29 the attacker does not know about RCE training and so misinterprets the output of the network which leads to better adversarial detection, while in adv31 the attackers knows to flip the logits.
+adv29 uses ART for AutoAttack while adv31 uses the author's original code. In adv29 the attacker does not know about RCE training and so misinterprets the output of the network which leads to better adversarial detection, while in adv31 the attackers knows to flip the logits. adv31nss tests the natural scene statistics detector.
